@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from posts import views
 from firstapp.views import *
 
 urlpatterns = [
@@ -25,6 +26,8 @@ urlpatterns = [
     path('home/', index, name='home'),
 
     path('posts/', include('posts.urls'), name='posts'),
+
+    path('<int:id>/', views.redirect_url, name='redirect'),
 
     path('admin/', admin.site.urls),
 ]

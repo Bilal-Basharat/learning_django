@@ -1,5 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 posts = [
     {
@@ -38,10 +39,18 @@ def post(request, id):
     post = next((p for p in posts if p['id'] == id), None)
 
     if not post:
-        return HttpResponse("Post not found", status=404)
+        return HttpResponseNotFound("Post not found", status=404)
 
     html_content = f'''
         <h1>{post['title']}</h1>
         <p>{post['content']}</p>
     '''
     return HttpResponse(html_content)
+
+def redirect_url(request, id):
+    url = reverse('post', args=[id])
+    return HttpResponseRedirect(url)
+
+def not_found(request):
+    return HttpResponseNotFound("Page not found", status=404)
+
