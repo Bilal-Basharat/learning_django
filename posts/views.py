@@ -41,11 +41,12 @@ def post(request, id):
     if not post:
         return HttpResponseNotFound("Post not found", status=404)
 
-    html_content = f'''
-        <h1>{post['title']}</h1>
-        <p>{post['content']}</p>
-    '''
-    return HttpResponse(html_content)
+    # html_content = f'''
+    #     <h1>{post['title']}</h1>
+    #     <p>{post['content']}</p>
+    # '''
+    # return HttpResponse(html_content)
+    return render(request, 'posts/post.html', {'post': post})
 
 def redirect_url(request, id):
     url = reverse('post', args=[id])
@@ -54,3 +55,5 @@ def redirect_url(request, id):
 def not_found(request):
     return HttpResponseNotFound("Page not found", status=404)
 
+def render_post_list(request):
+    return render(request, 'posts/index.html', {'posts': posts})

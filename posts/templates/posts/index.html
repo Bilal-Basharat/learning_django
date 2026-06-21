@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Posts{% endblock %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'posts/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{% url 'post' post.id %}">{{ post.title }}</a></li>
+            <li>{{ post.content }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
