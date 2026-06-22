@@ -9,6 +9,10 @@ urlpatterns = [
     path('<int:id>/', post, name='post'),
     
     
+    path('form/', post_form, name='post_form'),
+    
+    path('thank-you/', thank_you, name='thank_you'),
+
     path('not-found/', not_found, name='not_found'),
 ]
 

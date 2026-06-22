@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} Post Form {% endblock %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'posts/post.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <a href="{% url 'post_list' %}">Back to Posts</a>
+    <h1>Post Form</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

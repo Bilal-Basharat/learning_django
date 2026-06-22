@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from .forms import PostForm
+
 posts = [
     {
         'id': 1,
@@ -57,3 +59,19 @@ def not_found(request):
 
 def render_post_list(request):
     return render(request, 'posts/index.html', {'posts': posts})
+
+def post_form(request):
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if(form.is_valid()):
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['phone']
+            return HttpResponseRedirect('/posts/thank-you')
+    else:
+        form = PostForm()
+    return render(request, 'posts/form.html', {'form': form})
+
+def thank_you(request):
+    return HttpResponse("Thank you for submitting the form!")
