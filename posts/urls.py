@@ -14,6 +14,8 @@ urlpatterns = [
     path('thank-you/', thank_you, name='thank_you'),
 
     path('not-found/', not_found, name='not_found'),
+    
+    path('delete-cookie/', delete_cookie, name='delete_cookie'),
 ]
 
 admin.site.site_header = 'Blog Admin'

@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -42,13 +44,17 @@ def post(request, id):
 
     if not post:
         return HttpResponseNotFound("Post not found", status=404)
+    
+    request.COOKIES['name'] = 'Bilal'
 
-    # html_content = f'''
-    #     <h1>{post['title']}</h1>
-    #     <p>{post['content']}</p>
-    # '''
-    # return HttpResponse(html_content)
-    return render(request, 'posts/post.html', {'post': post})
+    response = render(request, 'posts/post.html', {'post': post})
+    response.set_cookie('name', 'Bilal')
+    return response
+
+def delete_cookie(request):
+    response = HttpResponse("Cookie deleted")
+    response.delete_cookie('name')
+    return response
 
 def redirect_url(request, id):
     url = reverse('post', args=[id])
@@ -58,9 +64,17 @@ def not_found(request):
     return HttpResponseNotFound("Page not found", status=404)
 
 def render_post_list(request):
-    return render(request, 'posts/index.html', {'posts': posts})
+
+    response = render(request, 'posts/index.html', {'posts': posts})
+
+    response.set_cookie('my_cookie', 'cookie_value', max_age=5)
+    response.set_cookie('secure_cookie', 'secure_value', httponly=True, secure=True, samesite='Strict')
+    response.set_cookie('name',  'zeeshan', httponly=True, samesite='Strict')
+    
+    return response
 
 def post_form(request):
+
 
     if request.method == 'POST':
         form = PostForm(request.POST)
