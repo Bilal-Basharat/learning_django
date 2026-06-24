@@ -8,6 +8,8 @@ urlpatterns = [
     path('', render_post_list, name='post_list'),
     path('<int:id>/', post, name='post'),
     
+    path('set', set, name='post'),
+    path('get', get, name='post'),
     
     path('form/', post_form, name='post_form'),
     

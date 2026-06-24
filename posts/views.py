@@ -1,9 +1,7 @@
-from urllib import request
-
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
+from django.template.response import TemplateResponse
 from .forms import PostForm
 
 posts = [
@@ -39,6 +37,7 @@ def post_list(request):
 
 
 def post(request, id):
+    print('print content')
 
     post = next((p for p in posts if p['id'] == id), None)
 
@@ -89,3 +88,10 @@ def post_form(request):
 
 def thank_you(request):
     return HttpResponse("Thank you for submitting the form!")
+
+def set(request):
+    # raise Exception("This is a test exception for testing the error handling middleware.")
+    return TemplateResponse(request, 'posts/set.html',{'name': 'Bilal'})
+
+def get():
+    return HttpResponse("Thank you for calling get method")

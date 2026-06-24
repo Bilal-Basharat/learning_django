@@ -56,6 +56,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+external_middleware = [
+    'posts.middleware.CustomFunctionMiddleware',
+    'posts.middleware.CustomClassMiddleware',
+    ]
+
+MIDDLEWARE += external_middleware
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
